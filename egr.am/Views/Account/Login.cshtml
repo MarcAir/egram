@@ -1,0 +1,75 @@
+﻿@using egr.am.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+<div class="row">
+    <div class="medium-12">
+        <h2>@ViewBag.Title</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="medium-8 columns">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <legend>Use a @Application.Name account to log in</legend>
+
+                   
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row collapse  prefix-radius">
+                        <div class="medium-4 columns">
+
+                            @Html.LabelFor(m => m.Email, new { @class = "prefix" })
+                        </div>
+                        <div class="medium-8 columns">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row collapse  prefix-radius">
+                        <div class="medium-4 columns">
+                            @Html.LabelFor(m => m.Password, new { @class = "prefix" })
+                        </div>
+                        <div class="medium-8 columns">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="medium-offset-2 medium-10 columns">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.RememberMe)@Html.LabelFor(m => m.RememberMe)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="medium-offset-2 medium-10 columns">
+                            <input type="submit" value="Log in" class="button" />
+                            <p>
+                                @Html.ActionLink("Register as a new user", "Register")
+                            </p>
+                        </div>
+                    </div>
+                </fieldset>
+                @* Enable this once you have account confirmation enabled for password reset functionality
+                    <p>
+                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                    </p>*@
+            }
+        </section>
+    </div>
+    <div class="medium-4 columns">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

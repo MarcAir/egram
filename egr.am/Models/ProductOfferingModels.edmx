@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProductOfferingModels.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ProductOfferingModelsStoreContainer">
+    <EntitySet Name="ProductOfferings" EntityType="ProductOfferingModels.Store.ProductOfferings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Products" EntityType="ProductOfferingModels.Store.Products" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Prices" EntityType="ProductOfferingModels.Store.Prices" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Contracts" EntityType="ProductOfferingModels.Store.Contracts" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductOfferingMarketings" EntityType="ProductOfferingModels.Store.ProductOfferingMarketings" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductOfferingMarketingPages" EntityType="ProductOfferingModels.Store.ProductOfferingMarketingPages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Media" EntityType="ProductOfferingModels.Store.Media" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MediaProductOfferingMarketingPage" EntityType="ProductOfferingModels.Store.MediaProductOfferingMarketingPage" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ContractPrice" Association="ProductOfferingModels.Store.ContractPrice">
+      <End Role="Contract" EntitySet="Contracts" />
+      <End Role="Price" EntitySet="Prices" />
+    </AssociationSet>
+    <AssociationSet Name="ProductPrice" Association="ProductOfferingModels.Store.ProductPrice">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Price" EntitySet="Prices" />
+    </AssociationSet>
+    <AssociationSet Name="ProductOfferingProduct" Association="ProductOfferingModels.Store.ProductOfferingProduct">
+      <End Role="ProductOffering" EntitySet="ProductOfferings" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="ProductOfferingMarketingProductOfferingMarketingPage" Association="ProductOfferingModels.Store.ProductOfferingMarketingProductOfferingMarketingPage">
+      <End Role="ProductOfferingMarketing" EntitySet="ProductOfferingMarketings" />
+      <End Role="ProductOfferingMarketingPage" EntitySet="ProductOfferingMarketingPages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MediaProductOfferingMarketingPage_Media" Association="ProductOfferingModels.Store.FK_MediaProductOfferingMarketingPage_Media">
+      <End Role="Media" EntitySet="Media" />
+      <End Role="MediaProductOfferingMarketingPage" EntitySet="MediaProductOfferingMarketingPage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MediaProductOfferingMarketingPage_ProductOfferingMarketingPage" Association="ProductOfferingModels.Store.FK_MediaProductOfferingMarketingPage_ProductOfferingMarketingPage">
+      <End Role="ProductOfferingMarketingPage" EntitySet="ProductOfferingMarketingPages" />
+      <End Role="MediaProductOfferingMarketingPage" EntitySet="MediaProductOfferingMarketingPage" />
+    </AssociationSet>
+    <AssociationSet Name="ProductOfferingProductOfferingMarketing" Association="ProductOfferingModels.Store.ProductOfferingProductOfferingMarketing">
+      <End Role="ProductOffering" EntitySet="ProductOfferings" />
+      <End Role="ProductOfferingMarketing" EntitySet="ProductOfferingMarketings" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ProductOfferings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateAdded" Type="datetime" Nullable="false" />
+    <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NiceName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ManufacturerPartNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SKU" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProductOfferingId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Prices">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Version" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateProduction" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateAdded" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateDiscontinued" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MSRP" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MSRPDiscount" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="ProductBaseCost_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProductBaseCost_PriceMethod" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ContractId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Contracts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductOfferingMarketings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Version" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateAdded" Type="datetime" Nullable="false" />
+    <Property Name="DateDiscontinued" Type="datetime" Nullable="false" />
+    <Property Name="DateLastModified" Type="datetime" Nullable="false" />
+    <Property Name="ProductOfferingId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProcessOrder" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductOfferingMarketingPages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Page_HTML" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Page_PageName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProductOfferingMarketingId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Media">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NiceName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MediaProductOfferingMarketingPage">
+    <Key>
+      <PropertyRef Name="Media_Id" />
+      <PropertyRef Name="ProductOfferingMarketingPages_Id" />
+    </Key>
+    <Property Name="Media_Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ProductOfferingMarketingPages_Id" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="ContractPrice">
+    <End Role="Contract" Type="ProductOfferingModels.Store.Contracts" Multiplicity="1" />
+    <End Role="Price" Type="ProductOfferingModels.Store.Prices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contract">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Price">
+        <PropertyRef Name="ContractId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductPrice">
+    <End Role="Product" Type="ProductOfferingModels.Store.Products" Multiplicity="1" />
+    <End Role="Price" Type="ProductOfferingModels.Store.Prices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Price">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductOfferingProduct">
+    <End Role="ProductOffering" Type="ProductOfferingModels.Store.ProductOfferings" Multiplicity="1" />
+    <End Role="Product" Type="ProductOfferingModels.Store.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductOffering">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductOfferingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductOfferingMarketingProductOfferingMarketingPage">
+    <End Role="ProductOfferingMarketing" Type="ProductOfferingModels.Store.ProductOfferingMarketings" Multiplicity="1" />
+    <End Role="ProductOfferingMarketingPage" Type="ProductOfferingModels.Store.ProductOfferingMarketingPages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductOfferingMarketing">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductOfferingMarketingPage">
+        <PropertyRef Name="ProductOfferingMarketingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductOfferingProductOfferingMarketing">
+    <End Role="ProductOffering" Type="ProductOfferingModels.Store.ProductOfferings" Multiplicity="1" />
+    <End Role="ProductOfferingMarketing" Type="ProductOfferingModels.Store.ProductOfferingMarketings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductOffering">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductOfferingMarketing">
+        <PropertyRef Name="ProductOfferingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MediaProductOfferingMarketingPage_Media">
+    <End Role="Media" Type="ProductOfferingModels.Store.Media" Multiplicity="1" />
+    <End Role="MediaProductOfferingMarketingPage" Type="ProductOfferingModels.Store.MediaProductOfferingMarketingPage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Media">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MediaProductOfferingMarketingPage">
+        <PropertyRef Name="Media_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MediaProductOfferingMarketingPage_ProductOfferingMarketingPage">
+    <End Role="MediaProductOfferingMarketingPage" Type="ProductOfferingModels.Store.MediaProductOfferingMarketingPage" Multiplicity="*" />
+    <End Role="ProductOfferingMarketingPage" Type="ProductOfferingModels.Store.ProductOfferingMarketingPages" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="ProductOfferingMarketingPage">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MediaProductOfferingMarketingPage">
+        <PropertyRef Name="ProductOfferingMarketingPages_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ProductOfferingModels" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ProductOfferingModelsContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ProductOfferings" EntityType="ProductOfferingModels.ProductOffering" />
+          <EntitySet Name="Products" EntityType="ProductOfferingModels.Product" />
+          <EntitySet Name="Prices" EntityType="ProductOfferingModels.Price" />
+          <EntitySet Name="Contracts" EntityType="ProductOfferingModels.Contract" />
+          <AssociationSet Name="ContractPrice" Association="ProductOfferingModels.ContractPrice">
+            <End Role="Contract" EntitySet="Contracts" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="ProductPrice" Association="ProductOfferingModels.ProductPrice">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="ProductOfferingProduct" Association="ProductOfferingModels.ProductOfferingProduct">
+            <End Role="ProductOffering" EntitySet="ProductOfferings" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <EntitySet Name="ProductOfferingMarketings" EntityType="ProductOfferingModels.ProductOfferingMarketing" />
+          <EntitySet Name="ProductOfferingMarketingPages" EntityType="ProductOfferingModels.ProductOfferingMarketingPage" />
+          <AssociationSet Name="ProductOfferingMarketingProductOfferingMarketingPage" Association="ProductOfferingModels.ProductOfferingMarketingProductOfferingMarketingPage">
+            <End Role="ProductOfferingMarketing" EntitySet="ProductOfferingMarketings" />
+            <End Role="ProductOfferingMarketingPage" EntitySet="ProductOfferingMarketingPages" />
+          </AssociationSet>
+          <EntitySet Name="Media" EntityType="ProductOfferingModels.Media" />
+          <AssociationSet Name="MediaProductOfferingMarketingPage" Association="ProductOfferingModels.MediaProductOfferingMarketingPage">
+            <End Role="Media" EntitySet="Media" />
+            <End Role="ProductOfferingMarketingPage" EntitySet="ProductOfferingMarketingPages" />
+          </AssociationSet>
+          <AssociationSet Name="ProductOfferingProductOfferingMarketing" Association="ProductOfferingModels.ProductOfferingProductOfferingMarketing">
+            <End Role="ProductOffering" EntitySet="ProductOfferings" />
+            <End Role="ProductOfferingMarketing" EntitySet="ProductOfferingMarketings" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ProductOffering">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="ProductName" Type="String" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" />
+          <Property Name="DateLastModified" Type="DateTime" Nullable="false" />
+          <Property Name="Status" Type="String" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="ProductOfferingModels.ProductOfferingProduct" FromRole="ProductOffering" ToRole="Product" />
+          <NavigationProperty Name="ProductOfferingMarketings" Relationship="ProductOfferingModels.ProductOfferingProductOfferingMarketing" FromRole="ProductOffering" ToRole="ProductOfferingMarketing" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="NiceName" Type="String" Nullable="false" />
+          <Property Name="ManufacturerPartNumber" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="SKU" Type="String" Nullable="false" />
+          <NavigationProperty Name="Prices" Relationship="ProductOfferingModels.ProductPrice" FromRole="Product" ToRole="Price" />
+          <NavigationProperty Name="ProductOffering" Relationship="ProductOfferingModels.ProductOfferingProduct" FromRole="Product" ToRole="ProductOffering" />
+          <Property Name="ProductOfferingId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Version" Type="String" Nullable="false" >
+            <Documentation>
+              <Summary>auto increment based on previous pricing version</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="DateProduction" Type="String" Nullable="false" >
+            <Documentation>
+              <Summary>Production use date</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="DateAdded" Type="String" Nullable="false" >
+            <Documentation>
+              <Summary>when added</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="DateDiscontinued" Type="String" Nullable="false" >
+            <Documentation>
+              <Summary>no longer available for new orders</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="MSRP" Type="String" Nullable="false" >
+            <Documentation>
+              <Summary>Manufacturers suggested retail price</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="MSRPDiscount" Type="Double" Nullable="false" DefaultValue="0.00" cg:GetterAccess="Private" cg:SetterAccess="Private" >
+            <Documentation>
+              <Summary>Percent off MSRP as defined contractually</Summary>
+            </Documentation>
+          </Property>
+          <Property Name="ProductBaseCost" Type="ProductOfferingModels.BaseCost" Nullable="false" >
+            <Documentation>
+              <Summary>Calculation method for buy Price</Summary>
+            </Documentation>
+          </Property>
+          <NavigationProperty Name="Contract" Relationship="ProductOfferingModels.ContractPrice" FromRole="Price" ToRole="Contract" />
+          <Property Name="ContractId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="ProductOfferingModels.ProductPrice" FromRole="Price" ToRole="Product" />
+          <Property Name="ProductId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="BaseCost" cg:TypeAccess="Internal" >
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="PriceMethod" Nullable="false" annotation:StoreGeneratedPattern="None" cg:GetterAccess="Protected" cg:SetterAccess="Protected" >
+            <Documentation>
+              <Summary>http://entrepreneurs.about.com/od/salesmarketing/a/pricingstrategy_2.htm</Summary>
+              <LongDescription>Models for calculating product Pricing.</LongDescription>
+            </Documentation>
+          </Property>
+        </ComplexType>
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="Prices" Relationship="ProductOfferingModels.ContractPrice" FromRole="Contract" ToRole="Price" />
+        </EntityType>
+        <Association Name="ContractPrice">
+          <End Type="ProductOfferingModels.Contract" Role="Contract" Multiplicity="1" />
+          <End Type="ProductOfferingModels.Price" Role="Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="ContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductPrice">
+          <End Type="ProductOfferingModels.Product" Role="Product" Multiplicity="1" />
+          <End Type="ProductOfferingModels.Price" Role="Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductOfferingProduct">
+          <End Type="ProductOfferingModels.ProductOffering" Role="ProductOffering" Multiplicity="1" />
+          <End Type="ProductOfferingModels.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductOffering">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductOfferingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ProductOfferingMarketing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Status" Type="String" Nullable="false" />
+          <Property Name="Version" Type="String" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" />
+          <Property Name="DateDiscontinued" Type="DateTime" Nullable="false" />
+          <Property Name="DateLastModified" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="ProductOfferingMarketingPages" Relationship="ProductOfferingModels.ProductOfferingMarketingProductOfferingMarketingPage" FromRole="ProductOfferingMarketing" ToRole="ProductOfferingMarketingPage" />
+          <NavigationProperty Name="ProductOffering" Relationship="ProductOfferingModels.ProductOfferingProductOfferingMarketing" FromRole="ProductOfferingMarketing" ToRole="ProductOffering" />
+          <Property Name="ProductOfferingId" Type="Guid" Nullable="false" />
+          <Property Name="ProcessOrder" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductOfferingMarketingPage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Page" Type="ProductOfferingModels.POMPP" Nullable="false" cg:SetterAccess="Private" />
+          <NavigationProperty Name="ProductOfferingMarketing" Relationship="ProductOfferingModels.ProductOfferingMarketingProductOfferingMarketingPage" FromRole="ProductOfferingMarketingPage" ToRole="ProductOfferingMarketing" />
+          <Property Name="ProductOfferingMarketingId" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Media" Relationship="ProductOfferingModels.MediaProductOfferingMarketingPage" FromRole="ProductOfferingMarketingPage" ToRole="Media" />
+        </EntityType>
+        <ComplexType Name="POMPP" >
+          <Property Type="String" Name="HTML" Nullable="false" cg:SetterAccess="Private" />
+          <Property Type="String" Name="PageName" Nullable="false" />
+        </ComplexType>
+        <Association Name="ProductOfferingMarketingProductOfferingMarketingPage">
+          <End Type="ProductOfferingModels.ProductOfferingMarketing" Role="ProductOfferingMarketing" Multiplicity="1" />
+          <End Type="ProductOfferingModels.ProductOfferingMarketingPage" Role="ProductOfferingMarketingPage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductOfferingMarketing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductOfferingMarketingPage">
+              <PropertyRef Name="ProductOfferingMarketingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Media">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="NiceName" Type="String" Nullable="false" />
+          <Property Name="URL" Type="String" Nullable="false" />
+          <NavigationProperty Name="ProductOfferingMarketingPages" Relationship="ProductOfferingModels.MediaProductOfferingMarketingPage" FromRole="Media" ToRole="ProductOfferingMarketingPage" />
+        </EntityType>
+        <Association Name="MediaProductOfferingMarketingPage">
+          <End Type="ProductOfferingModels.Media" Role="Media" Multiplicity="*" />
+          <End Type="ProductOfferingModels.ProductOfferingMarketingPage" Role="ProductOfferingMarketingPage" Multiplicity="*" />
+        </Association>
+        <Association Name="ProductOfferingProductOfferingMarketing">
+          <End Type="ProductOfferingModels.ProductOffering" Role="ProductOffering" Multiplicity="1" />
+          <End Type="ProductOfferingModels.ProductOfferingMarketing" Role="ProductOfferingMarketing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductOffering">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductOfferingMarketing">
+              <PropertyRef Name="ProductOfferingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProductOfferingModelsStoreContainer" CdmEntityContainer="ProductOfferingModelsContainer">
+    <EntitySetMapping Name="ProductOfferings">
+      <EntityTypeMapping TypeName="IsTypeOf(ProductOfferingModels.ProductOffering)">
+        <MappingFragment StoreEntitySet="ProductOfferings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="IsTypeOf(ProductOfferingModels.Product)">
+        <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NiceName" ColumnName="NiceName" />
+          <ScalarProperty Name="ManufacturerPartNumber" ColumnName="ManufacturerPartNumber" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="SKU" ColumnName="SKU" />
+          <ScalarProperty Name="ProductOfferingId" ColumnName="ProductOfferingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prices">
+      <EntityTypeMapping TypeName="IsTypeOf(ProductOfferingModels.Price)">
+        <MappingFragment StoreEntitySet="Prices">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="DateProduction" ColumnName="DateProduction" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="DateDiscontinued" ColumnName="DateDiscontinued" />
+          <ScalarProperty Name="MSRP" ColumnName="MSRP" />
+          <ScalarProperty Name="MSRPDiscount" ColumnName="MSRPDiscount" />
+          <ComplexProperty Name="ProductBaseCost" TypeName="ProductOfferingModels.BaseCost">
+            <ScalarProperty Name="Id" ColumnName="ProductBaseCost_Id" />
+            <ScalarProperty Name="PriceMethod" ColumnName="ProductBaseCost_PriceMethod" />
+          </ComplexProperty>
+          <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contracts">
+      <EntityTypeMapping TypeName="IsTypeOf(ProductOfferingModels.Contract)">
+        <MappingFragment StoreEntitySet="Contracts">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductOfferingMarketings">
+      <EntityTypeMapping TypeName="IsTypeOf(ProductOfferingModels.ProductOfferingMarketing)">
+        <MappingFragment StoreEntitySet="ProductOfferingMarketings">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="DateDiscontinued" ColumnName="DateDiscontinued" />
+          <ScalarProperty Name="DateLastModified" ColumnName="DateLastModified" />
+          <ScalarProperty Name="ProductOfferingId" ColumnName="ProductOfferingId" />
+          <ScalarProperty Name="ProcessOrder" ColumnName="ProcessOrder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductOfferingMarketingPages">
+      <EntityTypeMapping TypeName="IsTypeOf(ProductOfferingModels.ProductOfferingMarketingPage)">
+        <MappingFragment StoreEntitySet="ProductOfferingMarketingPages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ComplexProperty Name="Page" TypeName="ProductOfferingModels.POMPP">
+            <ScalarProperty Name="HTML" ColumnName="Page_HTML" />
+            <ScalarProperty Name="PageName" ColumnName="Page_PageName" />
+          </ComplexProperty>
+          <ScalarProperty Name="ProductOfferingMarketingId" ColumnName="ProductOfferingMarketingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Media">
+      <EntityTypeMapping TypeName="IsTypeOf(ProductOfferingModels.Media)">
+        <MappingFragment StoreEntitySet="Media">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NiceName" ColumnName="NiceName" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="MediaProductOfferingMarketingPage" TypeName="ProductOfferingModels.MediaProductOfferingMarketingPage" StoreEntitySet="MediaProductOfferingMarketingPage">
+      <EndProperty Name="Media">
+        <ScalarProperty Name="Id" ColumnName="Media_Id" />
+      </EndProperty>
+      <EndProperty Name="ProductOfferingMarketingPage">
+        <ScalarProperty Name="Id" ColumnName="ProductOfferingMarketingPages_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

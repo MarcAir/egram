@@ -1,0 +1,68 @@
+﻿@model egr.am.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+<div class="row">
+    <div class="medium-12">
+        <h2>@ViewBag.Title.</h2>
+        </div>
+    </div>
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="medium-12">
+                    <h4>Create a new account.</h4>
+                </div>
+            </div>
+             
+            <hr />
+            @Html.ValidationSummary("", new { @class = "small text-danger" })
+            <div class="row">
+                <div class="medium-6 columns">
+                    <div class="row collapse  prefix-radius">
+                        <div class="medium-2 columns">
+                            @Html.LabelFor(m => m.Email, new { @class = "prefix" })
+                        </div>
+                        <div class="medium-10 columns">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control required" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "small text-danger" })
+                        </div>
+                        </div>
+                    <div class="row collapse  prefix-radius">
+                        <div class="medium-2 columns">
+                            @Html.LabelFor(m => m.Password, new { @class = "prefix" })
+                        </div>
+                        <div class="medium-10 columns">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control required" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "small text-danger" })
+                        </div>
+                        </div>
+                    <div class="row collapse  prefix-radius">
+                        <div class="medium-2 columns">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "prefix" })
+                        </div>
+                        <div class="medium-10 columns">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control required" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "small text-danger" })
+                        </div>
+                        </div>
+
+                    <div class="row collapse  prefix-radius">
+                        <div class="medium-offset-2 medium-10 columns">
+                            <input type="submit" class="button" value="Register" />
+                        </div>
+                        </div>
+                    </div>
+            
+            
+                <div class="medium-6 columns">
+                    <h2>Registration text</h2>
+                </div>
+            </div> 
+        }
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
